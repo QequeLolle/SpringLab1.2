@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop = "http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/aop
+   		http://www.springframework.org/schema/aop/spring-aop.xsd
+        "
+>
+    <context:property-placeholder location="scene.properties"/>
+
+    <bean id="coords" class="lab1_2.Coords" scope="prototype"/>
+
+    <bean id="point1" class="lab1_2.Point" scope="singleton">
+        <constructor-arg ref="coords"/>
+        <property name="x" value="${point.x}"/>
+        <property name="y" value="${point.y}"/>
+        <property name="colour" value="blue"/>
+
+    </bean>
+
+    <bean id="point2" class="lab1_2.Point">
+
+    </bean>
+
+    <bean id="coordsGreen" class="lab1_2.Coords">
+        <constructor-arg index="0" value="44"/>
+        <constructor-arg name="y" value="55"/>
+    </bean>
+
+    <bean id="point3" class="lab1_2.Point">
+        <constructor-arg ref="coordsGreen"/>
+        <property name="colour" value="green"/>
+
+    </bean>
+
+    <bean id="circle" class="lab1_2.Circle">
+        <constructor-arg ref="coords"/>
+        <constructor-arg value="5"/>
+    </bean>
+
+    <bean id="yellowCircle" class="lab1_2.Circle">
+        <constructor-arg ref="coords"/>
+        <property name="x" value="${yellowCircle.x}"/>
+        <property name="y" value="${yellowCircle.y}"/>
+        <property name="colour" value="${yellowCircle.colour}"/>
+        <constructor-arg index="1" value="${yellowCircle.r}"/>
+
+    </bean>
+
+    <bean id="scene" class="lab1_2.Scene" scope="singleton">
+        <property name="figs">
+            <list>
+                <ref bean="point1"/>
+                <ref bean="point2"/>
+                <ref bean="point3"/>
+                <ref bean="circle"/>
+                <ref bean="yellowCircle"/>
+                <bean class="lab1_2.Point" scope="prototype">
+                    <constructor-arg ref="coords"/>
+                    <property name="x" value="7"/>
+                    <property name="y" value="7"/>
+                    <property name="colour" value="red"/>
+                </bean>
+                <bean class="lab1_2.Circle">
+                    <constructor-arg ref="coordsGreen"/>
+                    <constructor-arg name="radius" value="11"/>
+                    <property name="x" value="78"/>
+                    <property name="y" value="77"/>
+                    <property name="colour" value="white"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+</beans>
