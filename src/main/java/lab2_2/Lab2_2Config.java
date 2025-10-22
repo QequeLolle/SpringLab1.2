@@ -134,14 +134,14 @@ public class Lab2_2Config {
         return new Point(coords77(), "red");
     }
 
-//    @Autowired
-//    private Environment env;
-//    final String circle3Colour = env.getProperty("yellowCircle.colour", String.class,"grey");
-//
-//    @Bean
-//    Circle circle3() {
-//        return new Circle(coords77(), 11, circle3Colour);
-//    }
+    @Autowired
+    private Environment env;
+
+    @Bean
+    Circle circle3() {
+        final String circle3Colour = env.getProperty("yellowCircle.colour", String.class,"grey");
+        return new Circle(coords77(), 11, circle3Colour);
+    }
 
     @Bean
     Circle whiteCircle() {
