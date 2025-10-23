@@ -1,16 +1,10 @@
 package dbSpringData.dao;
 
-import java.util.List;
+import org.hibernate.boot.model.relational.Sequence;
+import org.springframework.data.repository.CrudRepository;
 
-public interface CourseDao {
+import java.sql.Types;
 
-    Course findById(int id);
-    List<Course> findAll();
-    List<Course> findByTitle(String title);
-
-    //CRUD
-    void insert(Course course);
-    void update(Course course);
-    void delete(int id);
+public interface CourseDao extends CrudRepository<Course, Integer> {
 
 }

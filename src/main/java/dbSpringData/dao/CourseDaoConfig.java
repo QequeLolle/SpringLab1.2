@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -18,8 +19,9 @@ import javax.sql.DataSource;
 
 @Configuration
 @PropertySource("jdbc.properties")
-@ComponentScan("dbJPA.dao")
+@ComponentScan("dbSpringData.dao")
 @EnableTransactionManagement
+@EnableJpaRepositories(basePackages = "dbSpringData.dao")  // THIS IS THE MOST IMPORTANT PART OF WORK
 public class CourseDaoConfig {
 
     @Autowired
@@ -38,13 +40,13 @@ public class CourseDaoConfig {
     }
 
 
-    @Bean
+    @Bean("entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean emf() {
         var emf = new LocalContainerEntityManagerFactoryBean();
         emf.setDataSource(webDataSource());
 
         emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        emf.setPackagesToScan("dbJPA.dao");
+        emf.setPackagesToScan("dbSpringData.dao");
 
         return emf;
     }
