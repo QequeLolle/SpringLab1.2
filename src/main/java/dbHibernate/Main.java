@@ -25,15 +25,17 @@ public class Main {
 //            System.out.println("\n====================================\n");
 //
 //            dao.delete(2);
-
-//            Course webAsp = dao.findById(7);
-//            webAsp.setTitle("Developing web app with ASP.NET Core MVC");
-//            dao.update(webAsp);
 //
 //            System.out.println("\n====================================\n");
 
+//            Course webAsp = dao.findById(7);
+//            webAsp.setTitle("Developing web app with ASP.NET Core MVC 3");
+//            dao.update(webAsp);
+//
+//            System.out.println("\n====================================\n");
+//
 //            Course spring = new Course();
-//            spring.setTitle("Spring Base");
+//            spring.setTitle("Spring Base 3");
 //            spring.setLength(40);
 //            spring.setDescription("Цель нашего курса – освоить Spring Core и осветить преимущества использования современных возможностей Spring.");
 //

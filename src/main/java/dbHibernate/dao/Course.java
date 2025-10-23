@@ -1,5 +1,9 @@
 package dbHibernate.dao;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "courses")
 public class Course {
 
     private int id;
@@ -23,6 +27,11 @@ public class Course {
 
     // ==============================
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(sequenceName = "courses_id_seq", allocationSize = 1)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)  // from example for mySql
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -31,6 +40,7 @@ public class Course {
         this.id = id;
     }
 
+    @Column(name = "title")
     public String getTitle() {
         return title;
     }
@@ -39,6 +49,7 @@ public class Course {
         this.title = title;
     }
 
+    @Column(name = "length")
     public int getLength() {
         return length;
     }
@@ -47,6 +58,7 @@ public class Course {
         this.length = length;
     }
 
+    @Column(name = "description")
     public String getDescription() {
         return description;
     }
