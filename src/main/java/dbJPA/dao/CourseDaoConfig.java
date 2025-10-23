@@ -1,5 +1,6 @@
 package dbJPA.dao;
 
+import jakarta.persistence.Persistence;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -7,8 +8,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -16,7 +21,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @PropertySource("jdbc.properties")
-@ComponentScan("dbHibernate.dao")
+@ComponentScan("dbJPA.dao")
 @EnableTransactionManagement
 public class CourseDaoConfig {
 
@@ -37,17 +42,26 @@ public class CourseDaoConfig {
 
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory() {
-        LocalSessionFactoryBean sf = new LocalSessionFactoryBean();
-        sf.setDataSource(webDataSource());
-        sf.setPackagesToScan("dbHibernate.dao");
+    public LocalContainerEntityManagerFactoryBean emf() {
+        var emf = new LocalContainerEntityManagerFactoryBean();
+        emf.setDataSource(webDataSource());
 
-        return sf;
+        emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        emf.setPackagesToScan("dbJPA.dao");
+
+        return emf;
     }
+
 
     @Bean
     public TransactionManager transactionManager() {
-        return new HibernateTransactionManager(sessionFactory().getObject());
+        return new JpaTransactionManager(emf().getObject());
+    }
+
+    // for handling Spring Data exceptions
+    @Bean
+    public PersistenceExceptionTranslationPostProcessor persistenceExceptionTranslationPostProcessor() {
+        return new PersistenceExceptionTranslationPostProcessor();
     }
 
 
