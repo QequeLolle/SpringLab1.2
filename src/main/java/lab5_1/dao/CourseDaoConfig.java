@@ -19,9 +19,9 @@ import javax.sql.DataSource;
 
 @Configuration
 @PropertySource("jdbc.properties")
-@ComponentScan("dbSpringData.dao")
+@ComponentScan("lab5_1.dao")
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "dbSpringData.dao")  // THIS IS THE MOST IMPORTANT PART OF WORK
+@EnableJpaRepositories(basePackages = "lab5_1.dao")  // THIS IS THE MOST IMPORTANT PART OF WORK
 public class CourseDaoConfig {
 
     @Autowired
@@ -46,7 +46,7 @@ public class CourseDaoConfig {
         emf.setDataSource(webDataSource());
 
         emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        emf.setPackagesToScan("dbSpringData.dao");
+        emf.setPackagesToScan("lab5_1.dao");
 
         return emf;
     }

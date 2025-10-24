@@ -61,9 +61,19 @@ public class Main {
 
             System.out.println("\n====================================\n");
 
-            /* this findByTitle part doesn`t work, there is no such standard method in CrudRepository */
-//            System.out.println(dao.findByTitle("Web"));
+            /* replaced with new implementation */
+            System.out.println(dao.findByTitle("Web"));
 
+            System.out.println("\n====================================\n");
+
+            System.out.printf("MEDIANA = %.2f\n", dao.medianaLength());
+            System.out.printf("AVERAGE = %.2f\n", dao.averageLength());
+
+            System.out.println("\n====================================\n");
+
+            System.out.printf("AVERAGE = %.2f\nMEDIANA = %.2f\n",
+                    dao.getAverageAndMedianaLength().get(0),
+                    dao.getAverageAndMedianaLength().get(1));
 
         }
 
